@@ -1,0 +1,8 @@
+{
+  "name": "@whitemo-crud/play",
+  "scripts": {
+    "dev": "vite"
+  },
+  "author": "Mobai",
+  "license": "MIT"
+}

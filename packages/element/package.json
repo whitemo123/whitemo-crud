@@ -1,0 +1,22 @@
+{
+  "name": "@whitemo-crud/element",
+  "version": "1.0.0",
+  "description": "element-plus版本crud组件库",
+  "keywords": [
+    "vue3",
+    "typescript",
+    "crud",
+    "element-plus",
+    "ui",
+    "ui framework"
+  ],
+  "author": "Mobai",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/lib/index.js",
+  "module": "./dist/es/index.mjs",
+  "scripts": {
+  }
+}

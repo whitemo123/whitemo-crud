@@ -1,0 +1,11 @@
+{
+  "name": "@whitemo-crud/utils",
+  "version": "1.0.0",
+  "description": "whitemo-crud工具函数",
+  "main": "dist/index.js",
+  "scripts": {
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
