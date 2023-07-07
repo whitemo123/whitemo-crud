@@ -1,0 +1,1 @@
+"use strict";const e=require("vue");require("../style/index.scss");const n=e.defineComponent({name:"MSearch"}),t=e.defineComponent({...n,setup(r){return(c,o)=>(e.openBlock(),e.createElementBlock("div"))}});module.exports=t;

@@ -18,5 +18,6 @@
   "main": "./dist/lib/index.js",
   "module": "./dist/es/index.mjs",
   "scripts": {
+    "build": "vite build"
   }
 }
