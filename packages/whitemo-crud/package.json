@@ -1,0 +1,16 @@
+{
+  "name": "whitemo-crud",
+  "version": "1.0.0",
+  "description": "crud组件库",
+  "main": "index.js",
+  "keywords": [
+    "vue3",
+    "typescript",
+    "crud",
+    "element-plus",
+    "ui",
+    "ui framework"
+  ],
+  "author": "Mobai",
+  "license": "MIT"
+}
