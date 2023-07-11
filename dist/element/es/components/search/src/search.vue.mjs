@@ -1,16 +1,16 @@
-import { defineComponent as n, openBlock as o, createElementBlock as r, toDisplayString as c } from "vue";
-const m = /* @__PURE__ */ n({
+import { defineComponent as e, openBlock as o, createElementBlock as r } from "vue";
+import "../style/index.css.mjs";
+const s = { class: "w-search" }, p = /* @__PURE__ */ e({
   name: "m-search",
   __name: "search",
   props: {
-    column: {},
-    type: {}
+    modelValue: {},
+    size: {}
   },
-  setup(e) {
-    const t = e;
-    return (p, a) => (o(), r("div", null, "我是搜索" + c(t.type), 1));
+  setup(t) {
+    return (c, a) => (o(), r("div", s));
   }
 });
 export {
-  m as default
+  p as default
 };

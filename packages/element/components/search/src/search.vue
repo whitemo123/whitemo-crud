@@ -6,6 +6,7 @@
  * @description：列表搜索组件
  * @update: 2023-07-09 11:27
  */
+import "../style/index.less"
 import { SearchProps } from "./search"
 defineOptions({name: 'm-search'})
 
@@ -13,9 +14,7 @@ const props = defineProps<SearchProps>()
 </script>
 
 <template>
-  <div>我是搜索{{ props.type }}</div>
+  <div class="w-search">
+    
+  </div>
 </template>
-
-<style scoped>
-
-</style>

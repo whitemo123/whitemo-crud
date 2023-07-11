@@ -6,12 +6,21 @@
  * @update: 2023-07-09 11:27
  */
 
-export enum TypeEnum {
+/**
+ * 尺寸枚举
+ */
+export enum SizeEnum {
   small = "small",
   large = "large"
 }
 
 export interface SearchProps {
-  column?: string[];
-  type?: TypeEnum;
+  /**
+   * 搜索参数
+   */
+  modelValue: Object;
+  /**
+   * 组件尺寸
+   */
+  size?: SizeEnum;
 }
