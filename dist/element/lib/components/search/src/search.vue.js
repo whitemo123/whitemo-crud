@@ -1,0 +1,1 @@
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const e=require("vue"),o=e.defineComponent({name:"m-search",__name:"search",props:{column:{},type:{}},setup(t){const n=t;return(r,c)=>(e.openBlock(),e.createElementBlock("div",null,"我是搜索"+e.toDisplayString(n.type),1))}});exports.default=o;

@@ -1,47 +1,71 @@
-import { defineConfig } from 'vite';
+/**
+ * @name: vite.config
+ * @author: itmobai
+ * @date: 2023-07-09 19:19
+ * @description：vite.config
+ * @update: 2023-07-09 19:19
+ */
+import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
-import dts from 'vite-plugin-dts';
-import { resolve } from 'path';
-import DefineOptions from 'unplugin-vue-define-options/vite';
+import dts from "vite-plugin-dts"
 
 export default defineConfig({
   build: {
     minify: true,
     rollupOptions: {
-      input: ['index.ts'],
-      external: ["vue", /\.scss/, "@whitemo-crud/utils"],
+      external: ['vue', /\.scss/, '@whitemo-crud/utils'],
+      input: ["./index.ts"],
       output: [
         {
+          //打包格式
           format: 'es',
-          //不用打包成.es.js,这里我们想把它打包成.js
-          entryFileNames: '[name].js',
+          //打包后文件名
+          entryFileNames: '[name].mjs',
           //让打包目录和我们目录对应
           preserveModules: true,
+          exports: 'named',
           //配置打包根目录
-          dir: resolve(__dirname, './dist/es')
+          dir: '../../dist/element/es'
         },
         {
+          //打包格式
           format: 'cjs',
-          //不用打包成.mjs
+          //打包后文件名
           entryFileNames: '[name].js',
           //让打包目录和我们目录对应
           preserveModules: true,
+          exports: 'named',
           //配置打包根目录
-          dir: resolve(__dirname, './dist/lib')
+          dir: '../../dist/element/lib'
         }
       ]
     },
     lib: {
-      entry: './index.ts'
+      entry: './index.ts',
+      // formats: ["es", "cjs"]
     }
   },
   plugins: [
     vue(),
     dts({
-      entryRoot: './components',
-      outputDir: ['./dist/es/components', './dist/lib/components'],
-      tsConfigFilePath: '../../tsconfig.vite-config.json'
+      entryRoot: "./",
+      outDir: ["../../dist/element/es", "../../dist/element/lib"],
+      exclude: ["vite.config.ts"],
+      tsconfigPath: "../../tsconfig.json"
     }),
-    DefineOptions(),
+    {
+      name: 'style',
+      generateBundle(config, bundle) {
+        const keys = Object.keys(bundle);
+        for (const key of keys) {
+          const bundler: any = bundle[key as any];
+          this.emitFile({
+            type: 'asset',
+            fileName: key,
+            source: bundler.code.replace(/\.less/g, '.css')
+          });
+        }
+      }
+    }
   ]
-});
+})

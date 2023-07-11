@@ -1,23 +1,17 @@
 {
   "name": "@whitemo-crud/element",
-  "version": "1.0.0",
-  "description": "element-plus版本crud组件库",
-  "keywords": [
-    "vue3",
-    "typescript",
-    "crud",
-    "element-plus",
-    "ui",
-    "ui framework"
-  ],
-  "author": "Mobai",
-  "license": "MIT",
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/lib/index.js",
-  "module": "./dist/es/index.mjs",
+  "private": false,
+  "version": "0.0.2",
+  "description": "all element crud components are settled here",
+  "main": "lib/index.js",
+  "module": "es/index.mjs",
+  "types": "lib/index.d.js",
   "scripts": {
     "build": "vite build"
-  }
+  },
+  "dependencies": {
+    "@whitemo-crud/utils": "^0.0.1"
+  },
+  "author": "Mobai",
+  "license": "MIT"
 }

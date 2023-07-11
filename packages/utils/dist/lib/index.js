@@ -1,4 +1,1 @@
-"use strict";
-Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-const index = require("./withinstall/index.js");
-exports.withInstall = index.withInstall;
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const e=require("./install/index.js");exports.withInstall=e;

@@ -1,12 +1,20 @@
-import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
-import { resolve } from 'path';
+/**
+ * @name: vite.config
+ * @author: itmobai
+ * @date: 2023-07-09 20:30
+ * @description：vite.config
+ * @update: 2023-07-09 20:30
+ */
+import { defineConfig } from "vite";
+import dts from "vite-plugin-dts"
+import { resolve } from "path";
+
 
 export default defineConfig({
   build: {
-    minify: false,
+    minify: true,
     rollupOptions: {
-      input: ['index.ts'],
+      input: ["./index.ts"],
       output: [
         {
           format: 'es',
@@ -34,9 +42,14 @@ export default defineConfig({
   },
   plugins: [
     dts({
-      entryRoot: './',
-      outputDir: ['./dist/es', './dist/lib'],
-      tsConfigFilePath: '../../tsconfig.vite-config.json'
+      root: "./",
+      entryRoot: "./",
+      outDir: [
+        "./dist/es",
+        "./dist/lib"
+      ],
+      exclude: ["vite.config.ts", "node_modules/*"],
+      tsconfigPath: "../../tsconfig.json"
     })
   ]
-});
+})

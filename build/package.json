@@ -1,0 +1,12 @@
+{
+  "name": "@whitemo-crud/build",
+  "scripts": {
+    "start:element": "gulp --require @esbuild-kit/cjs-loader -f index.ts --p element"
+  },
+  "devDependencies": {
+    "@types/gulp": "^4.0.13",
+    "@types/gulp-less": "^0.0.33",
+    "gulp": "^4.0.2",
+    "gulp-less": "^5.0.0"
+  }
+}

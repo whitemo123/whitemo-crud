@@ -1,0 +1,1 @@
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const e=require("./components/index.js"),i=require("./components/search/index.js"),n={install:t=>{for(const r in e)t.use(e[r])}};exports.Search=i.Search;exports.default=n;

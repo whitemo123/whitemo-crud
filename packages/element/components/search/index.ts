@@ -1,6 +1,5 @@
-import { withInstall } from "@whitemo-crud/utils"
-import SearchCom from "./src/search.vue"
+import { withInstall } from "@whitemo-crud/utils";
 
-const Search = withInstall(SearchCom)
-export { Search }
+import _Search from "./src/search.vue";
+export const Search = withInstall(_Search)
 export default Search

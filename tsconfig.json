@@ -1,7 +1,19 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.node.json" },
-    { "path": "./tsconfig.vite-config.json" },
-  ]
+  "compilerOptions": {
+    "paths": {},
+    "strict": true,
+    "strictNullChecks": true,
+    "jsx": "preserve",
+    "noImplicitAny": true,
+    "noUnusedLocals": false,
+    "module": "ES6",
+    "moduleResolution": "Node",
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "composite": true,
+    "target": "ES6",
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+  },
+//  "exclude": ["vite.config.ts"]
 }

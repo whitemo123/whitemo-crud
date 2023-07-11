@@ -1,4 +1,4 @@
-import { withInstall } from "./withinstall/index.js";
+import { default as l } from "./install/index.js";
 export {
-  withInstall
+  l as withInstall
 };

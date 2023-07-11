@@ -1,13 +1,14 @@
 {
   "name": "@whitemo-crud/utils",
-  "version": "1.0.0",
-  "description": "whitemo-crud工具函数",
+  "private": false,
+  "version": "0.0.1",
+  "license": "MIT",
   "main": "dist/lib/index.js",
   "module": "dist/es/index.js",
+  "types": "dist/lib/index.d.ts",
   "scripts": {
     "build": "vite build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "description": "crud组件库utils库",
+  "author": "Mobai"
 }

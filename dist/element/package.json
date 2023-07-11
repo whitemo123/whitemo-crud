@@ -1,0 +1,17 @@
+{
+  "name": "w-crud-element",
+  "private": false,
+  "version": "0.0.2",
+  "description": "all element crud components are settled here",
+  "main": "lib/index.js",
+  "module": "es/index.mjs",
+  "types": "lib/index.d.js",
+  "scripts": {
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@whitemo-crud/utils": "^0.0.1"
+  },
+  "author": "Mobai",
+  "license": "MIT"
+}
