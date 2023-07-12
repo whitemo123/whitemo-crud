@@ -1,1 +1,0 @@
-"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const e=require("vue");require("../style/index.css.js");const r={class:"w-search"},t=e.defineComponent({name:"m-search",__name:"search",props:{modelValue:{},size:{}},setup(s){return(o,c)=>(e.openBlock(),e.createElementBlock("div",r))}});exports.default=t;
