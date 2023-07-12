@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "vue": "^3.3.4"
+    "element-plus": "^2.3.7",
+    "vue": "^3.3.4",
+    "whitemo-crud-element": "workspace:^"
   }
 }

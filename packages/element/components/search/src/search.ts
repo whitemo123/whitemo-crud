@@ -5,22 +5,16 @@
  * @description：search
  * @update: 2023-07-09 11:27
  */
+import {ICommonColumn} from "../../../types/common";
+import { ISize } from "../../../types/size";
 
-/**
- * 尺寸枚举
- */
-export enum SizeEnum {
-  small = "small",
-  large = "large"
-}
-
-export interface SearchProps {
+export interface SearchProps extends ISize {
   /**
    * 搜索参数
    */
   modelValue: Object;
   /**
-   * 组件尺寸
+   * 搜索项
    */
-  size?: SizeEnum;
+  column: ICommonColumn[];
 }

@@ -5,8 +5,12 @@
   },
   "devDependencies": {
     "@types/gulp": "^4.0.13",
+    "@types/gulp-autoprefixer": "^0.0.34",
     "@types/gulp-less": "^0.0.33",
+    "@types/gulp-sass": "^5.0.1",
     "gulp": "^4.0.2",
-    "gulp-less": "^5.0.0"
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-less": "^5.0.0",
+    "gulp-sass": "^5.1.0"
   }
 }

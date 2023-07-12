@@ -9,7 +9,7 @@ import { series, parallel } from "gulp"
 import {withTaskName} from "./utils/task";
 import {run} from "./utils/process";
 import { pkgRoot } from "./utils/paths"
-import { buildLess } from "./tasks/css"
+import { buildCss } from "./tasks/css"
 import {copyFiles} from "./tasks/file";
 
 // 打包项目
@@ -20,7 +20,7 @@ export default series(
   withTaskName("clean", () => run(`rimraf dist/${projectNo}`)),
   parallel(
     // 打包css
-    withTaskName("build-css", async () => buildLess(projectNo)),
+    withTaskName("build-css", async () => buildCss(projectNo)),
     // 打包ts及组件
     withTaskName("build-component", async () => run(`pnpm run build`, `${pkgRoot}/${projectNo}`))
   ),

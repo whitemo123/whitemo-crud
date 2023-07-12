@@ -1,7 +1,7 @@
 {
   "name": "@whitemo-crud/element",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "all element crud components are settled here",
   "main": "lib/index.js",
   "module": "es/index.mjs",
@@ -13,5 +13,8 @@
     "@whitemo-crud/utils": "^0.0.1"
   },
   "author": "Mobai",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "element-plus": "^2.3.7"
+  }
 }

@@ -13,7 +13,7 @@ export default defineConfig({
   build: {
     minify: true,
     rollupOptions: {
-      external: ['vue', /\.scss/, '@whitemo-crud/utils'],
+      external: ['vue', /\.less/, /\.scss/, '@whitemo-crud/utils'],
       input: ["./index.ts"],
       output: [
         {
@@ -62,7 +62,7 @@ export default defineConfig({
           this.emitFile({
             type: 'asset',
             fileName: key,
-            source: bundler.code.replace(/\.less/g, '.css')
+            source: bundler.code.replace(/\.scss/g, '.css')
           });
         }
       }
