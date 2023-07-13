@@ -4,7 +4,7 @@ import { ICommonColumn } from "whitemo-crud-element/es/types/common";
 
 const queryParam = ref<any>({
   page: 1,
-  limit: 10
+  limit: 10,
 })
 const column = ref<ICommonColumn[]>([
   {
@@ -80,12 +80,16 @@ const column = ref<ICommonColumn[]>([
     ],
   }
 ])
+
+const search = () => {
+  console.log(111)
+}
 </script>
 
 <template>
   <div>
     {{queryParam}}
-    <m-search v-model="queryParam" size="" :column="column" />
+    <m-search v-model="queryParam" size="" :column="column" @search="search" />
   </div>
 </template>
 

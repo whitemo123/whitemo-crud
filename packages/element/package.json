@@ -15,6 +15,7 @@
   "author": "Mobai",
   "license": "MIT",
   "devDependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
     "element-plus": "^2.3.7"
   }
 }

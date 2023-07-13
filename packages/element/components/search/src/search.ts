@@ -12,9 +12,13 @@ export interface SearchProps extends ISize {
   /**
    * 搜索参数
    */
-  modelValue: Object;
+  modelValue: any;
   /**
    * 搜索项
    */
   column: ICommonColumn[];
+  /**
+   * 搜索label宽度
+   */
+  labelWidth: string | number;
 }

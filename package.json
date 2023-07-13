@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "play": "pnpm run -C play dev",
     "commit": "git-cz",
     "build:element": "pnpm run -C build start:element"
   },

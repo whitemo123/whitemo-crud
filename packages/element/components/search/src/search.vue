@@ -9,13 +9,25 @@
 import { ref, computed } from "vue"
 import "../style/index.scss"
 import { externalAttr } from "../../../constants/bind"
-import type { FormInstance, FormRules } from 'element-plus'
+import type { FormInstance } from 'element-plus'
 import { SearchProps } from "./search"
 import {ICommonColumn} from "../../../types/common";
 
 defineOptions({name: 'm-search'})
 
-const props = defineProps<SearchProps>()
+const props = withDefaults(defineProps<SearchProps>(), {
+  labelWidth: "80px"
+})
+
+const emits = defineEmits<{
+  // 更新v-model
+  (e: "update:modelValue", data: any): void;
+  // 搜索事件
+  (e: "search"): void;
+  // 重置事件
+  (e: "reset"): void;
+}>()
+
 // 搜索表单ref
 const formRef = ref<FormInstance>()
 /**
@@ -36,7 +48,11 @@ const searchColumn = computed(() => {
       }
       // 赋值span
       if (!item.span) {
-        item.span = 6
+        if (item.type === "daterange") {
+          item.span = 6
+        } else {
+          item.span = 4
+        }
       }
       columns.push(item)
     }
@@ -111,6 +127,25 @@ const getComAttribute = (item: ICommonColumn) => {
   }
   return attr
 }
+/**
+ * 搜索
+ */
+const search = () => {
+  if (props.modelValue["page"]) {
+    emits("update:modelValue", {...props.modelValue, page: 1})
+  }
+  emits("search")
+}
+
+/**
+ * 重置
+ */
+const reset = () => {
+  formRef.value?.resetFields();
+  props.modelValue.page && emits("update:modelValue", {...props.modelValue, page: 1})
+  props.modelValue.limit && emits("update:modelValue", {...props.modelValue, limit: 10})
+  emits("reset")
+}
 </script>
 
 <template>
@@ -120,6 +155,7 @@ const getComAttribute = (item: ICommonColumn) => {
       :model="modelValue"
       :inline="true"
       :size="size"
+      :label-width="labelWidth"
     >
       <el-row :gutter="20">
         <el-col
@@ -139,6 +175,7 @@ const getComAttribute = (item: ICommonColumn) => {
               style="width: 100%"
               v-model="modelValue[colItem.prop]"
               v-bind="getComAttribute(colItem)"
+              clearable
             >
               <el-option
                 v-for="(dicItem, dicIndex) in colItem.dicData"
@@ -154,7 +191,16 @@ const getComAttribute = (item: ICommonColumn) => {
               :is="getComposeName(colItem.type)"
               v-bind="getComAttribute(colItem)"
               v-model="modelValue[colItem.prop]"
+              @keydown.enter="search"
             />
+          </el-form-item>
+        </el-col>
+        <el-col
+          :span="6"
+        >
+          <el-form-item>
+            <el-button :size="size" icon="Search" type="primary" @click="search">查询</el-button>
+            <el-button :size="size" icon="Delete" @click="reset">重置</el-button>
           </el-form-item>
         </el-col>
       </el-row>
