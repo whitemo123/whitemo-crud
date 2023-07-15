@@ -5,10 +5,10 @@
  * @description：search
  * @update: 2023-07-09 11:27
  */
-import {ICommonColumn} from "../../../types/common";
-import { ISize } from "../../../types/size";
+import {CommonColumn} from "../../../types/common";
+import { Size } from "../../../types/size";
 
-export interface SearchProps extends ISize {
+export interface SearchProps extends Size {
   /**
    * 搜索参数
    */
@@ -16,7 +16,7 @@ export interface SearchProps extends ISize {
   /**
    * 搜索项
    */
-  column: ICommonColumn[];
+  column: CommonColumn[];
   /**
    * 搜索label宽度
    */

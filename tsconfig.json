@@ -14,7 +14,7 @@
     "target": "ES6",
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
-    "types": ["whitemo-crud-element/global"]
-  },
+    "types": ["whitemo-crud-element/global"],
+  }
 //  "exclude": ["vite.config.ts"]
 }

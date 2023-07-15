@@ -11,6 +11,7 @@
     "@esbuild-kit/cjs-loader": "^2.4.2",
     "@types/node": "^20.4.1",
     "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
     "chalk": "^5.3.0",
     "commitizen": "^4.3.0",
     "consola": "^3.2.3",

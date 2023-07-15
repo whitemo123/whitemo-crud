@@ -1,0 +1,13 @@
+.m-table {
+  .pagination {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 16px 0;
+    box-sizing: border-box;
+  }
+  .el-table__inner-wrapper::before {
+    z-index: 1;
+  }
+}

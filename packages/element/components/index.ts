@@ -6,3 +6,5 @@
  * @update: 2023-07-09 11:56
  */
 export * from "./search"
+export * from "./table"
+export * from "./video"

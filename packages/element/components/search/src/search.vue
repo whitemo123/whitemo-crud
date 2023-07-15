@@ -11,7 +11,7 @@ import "../style/index.scss"
 import { externalAttr } from "../../../constants/bind"
 import type { FormInstance } from 'element-plus'
 import { SearchProps } from "./search"
-import {ICommonColumn} from "../../../types/common";
+import {CommonColumn} from "../../../types/common";
 
 defineOptions({name: 'm-search'})
 
@@ -34,7 +34,7 @@ const formRef = ref<FormInstance>()
  * 搜索配置项
  */
 const searchColumn = computed(() => {
-  const columns: ICommonColumn[] = []
+  const columns: CommonColumn[] = []
   props.column.forEach((item, index) => {
     // 不必要的类型进行过滤
     if (item.type !== "index" && item.type !== "selection" && item.type !== "image" && item.type !== "video") {
@@ -95,7 +95,7 @@ const getComposeName = (type: any) => {
  * 获取组件属性
  * @param item
  */
-const getComAttribute = (item: ICommonColumn) => {
+const getComAttribute = (item: CommonColumn) => {
   let attr: any = {}
   for (const key in item) {
     if (key === "type") {
@@ -165,7 +165,7 @@ const reset = () => {
         >
           <el-form-item
             :label="colItem.label"
-            :prop="colItem.prop"
+            :prop="colItem.prop as string"
           >
             <template v-if="colItem.slot">
               <slot :name="colItem.prop" v-bind="{row: modelValue}" />
@@ -199,8 +199,8 @@ const reset = () => {
           :span="6"
         >
           <el-form-item>
-            <el-button :size="size" icon="Search" type="primary" @click="search">查询</el-button>
-            <el-button :size="size" icon="Delete" @click="reset">重置</el-button>
+            <el-button :size='size as "large" | "default" | "small"' icon="Search" type="primary" @click="search">查询</el-button>
+            <el-button :size='size as "large" | "default" | "small"' icon="Delete" @click="reset">重置</el-button>
           </el-form-item>
         </el-col>
       </el-row>
