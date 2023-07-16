@@ -33,6 +33,22 @@ export interface TableColumn extends CommonColumn {
    * 图片前缀
    */
   imgPrefix?: string;
+  /**
+   * 列表视频宽度
+   */
+  videoWidth?: string;
+  /**
+   * 列表视频高度
+   */
+  videoHeight?: string;
+  /**
+   * 视频间隔符
+   */
+  videoSuffix?: string;
+  /**
+   * 视频前缀
+   */
+  videoPrefix?: string;
 }
 
 export interface TableProps extends Size {

@@ -11,6 +11,14 @@ export interface VideoProps {
    * 视频资源
    */
   src: string;
+  /**
+   * fit值
+   */
+  fit?: string;
+  /**
+   * 预览视频列表
+   */
+  previewSrcList?: string[];
 
   loading?: 'eager' | 'lazy';
 }

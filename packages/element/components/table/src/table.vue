@@ -124,6 +124,17 @@ const getRowImgs = (value: string, col: TableColumn) => {
   }
   return value.split(col.imgSuffix || ';').map(item => `${col.imgPrefix || ''}${item}`)
 }
+/**
+ * 获取视频集合
+ * @param value 图片值
+ * @param col 配置
+ */
+const getRowVideos = (value: string, col: TableColumn) => {
+  if (!value || !col) {
+    return []
+  }
+  return value.split(col.videoSuffix || ';').map(item => `${col.videoPrefix || ''}${item}`)
+}
 </script>
 
 <template>
@@ -163,10 +174,12 @@ const getRowImgs = (value: string, col: TableColumn) => {
           <!-- 视频渲染 -->
           <template v-else-if="item.type === 'video'">
             <m-video
-              :src="row[item.prop]"
-            >
-
-            </m-video>
+              :style="{width: item.imgWidth || '100px', height: item.imgHeight || '100px'}"
+              :src="getRowVideos(row[item.prop], item)[0]"
+              :preview-src-list="getRowVideos(row[item.prop], item)"
+              :zoom-rate="1.2"
+              fit="cover"
+            />
           </template>
         </template>
       </el-table-column>

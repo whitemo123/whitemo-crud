@@ -6,7 +6,8 @@
  * @description：视频组件
  * @update: 2023-07-15 14:42
  */
-import {ref, useAttrs, watch, onMounted} from "vue";
+import {ref, useAttrs, watch, onMounted, computed} from "vue";
+import type { CSSProperties, StyleValue } from 'vue'
 import "../style/index.scss"
 import { VideoProps } from "./video";
 
@@ -14,7 +15,9 @@ defineOptions({name: "m-video"})
 const props = withDefaults(defineProps<VideoProps>(), {
 
 })
+// 属性大全
 const attrs = useAttrs()
+// 封面图片
 const coverSrc = ref<string | undefined>()
 
 /**
@@ -25,6 +28,11 @@ const coverSrc = ref<string | undefined>()
 const getVideoCover = (url: string, time: number): Promise<string> => {
   return new Promise(resolve => {
     const video = document.createElement('video');
+    video.setAttribute("autoplay", "autoplay");
+    video.setAttribute("crossOrigin", "anonymous");
+    video.setAttribute("webkit-playsinline", 'true');
+    video.setAttribute("playsinline", 'true');
+    video.setAttribute("muted", 'true'); //静音
     video.src = url;
 
     video.onloadeddata = function() {
@@ -48,7 +56,7 @@ const getVideoCover = (url: string, time: number): Promise<string> => {
 }
 
 const loadVideo = async () => {
-  coverSrc.value = await getVideoCover(props.src, 1)
+  coverSrc.value = await getVideoCover(props.src, 5)
 }
 
 // 监听video src资源
@@ -62,19 +70,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="container" class="m-video">
+  <div ref="container" class="m-video" :style="(attrs.style as StyleValue)">
     <img
       v-if="coverSrc !== undefined"
       v-bind="attrs"
       :src="coverSrc"
+      :style="{objectFit: props.fit}"
     />
-<!--    <div v-if="isLoading" class="m-video-wrapper">-->
-<!--      <slot name="placeholder">-->
-<!--        <div :class="ns.e('placeholder')" />-->
-<!--      </slot>-->
-<!--    </div>-->
-<!--    <template v-if="preview">-->
+    <!-- <template v-if="preview">
 
-<!--    </template>-->
+    </template> -->
   </div>
 </template>
