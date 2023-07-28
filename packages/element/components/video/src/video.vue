@@ -6,7 +6,8 @@
  * @description：视频组件
  * @update: 2023-07-15 14:42
  */
-import {ref, useAttrs, watch, onMounted} from "vue";
+import {ref, useAttrs, watch, onMounted, computed} from "vue";
+import type { CSSProperties, StyleValue } from 'vue'
 import "../style/index.scss"
 import { VideoProps } from "./video";
 
@@ -14,6 +15,7 @@ defineOptions({name: "m-video"})
 const props = withDefaults(defineProps<VideoProps>(), {
 
 })
+// 属性大全
 const attrs = useAttrs()
 
 // 监听video src资源
