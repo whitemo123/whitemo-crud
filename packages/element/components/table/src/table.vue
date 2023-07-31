@@ -6,7 +6,7 @@
  * @description：table
  * @update: 2023-07-13 17:35
  */
-import {computed, useAttrs} from "vue";
+import {useAttrs, ref} from "vue";
 import {TableColumn, TableProps} from "./table";
 import "../style/index.scss"
 
@@ -29,6 +29,15 @@ const emits = defineEmits<{
   // 更新page
   (e: "update:page", page: number): void;
 }>()
+
+// 是否预览
+const previewDialog = ref(false)
+// 预览类型 (1 图片 2 视频)
+const previewType = ref(1)
+// 预览列表
+const previewUrls = ref<string[]>([])
+// 预览索引
+const previewIndex = ref(0)
 
 /**
  * 获取table-column属性
@@ -135,6 +144,29 @@ const getRowVideos = (value: string, col: TableColumn) => {
   }
   return value.split(col.videoSuffix || ';').map(item => `${col.videoPrefix || ''}${item}`)
 }
+
+/**
+ * 开启预览模式
+ * @param urls 预览地址
+ * @param index 索引
+ * @param type 类型(1 图片 2 视频)
+ */
+const openPreview = (urls: string[], index: number, type = 1) => {
+  previewIndex.value = index;
+  previewUrls.value = urls;
+  previewType.value = type;
+  previewDialog.value = true
+}
+
+/**
+ * 关闭预览
+ */
+const closePreview = () => {
+  previewDialog.value = false
+  previewUrls.value = []
+  previewType.value = 1
+  previewIndex.value = 0
+}
 </script>
 
 <template>
@@ -150,36 +182,37 @@ const getRowVideos = (value: string, col: TableColumn) => {
           <slot v-if="item.slot" :name="item.prop" v-bind="{row, $index}"/>
           <!-- 文字输出 -->
           <template v-else-if="isTextRender(item)">
-            {{ row[item.prop] === null ? (item.default || '--') : row[item.prop] }}
+            {{ row[item.prop as string] === null ? (item.default || '--') : row[item.prop as string] }}
           </template>
           <!-- 字典渲染 -->
           <span
             v-else-if="isDicRender(item)"
-            :style="{color: getDicDataByValue(row[item.prop], item)['color']}"
+            :style="{color: getDicDataByValue(row[item.prop as string], item)['color']}"
           >
-            {{ getDicDataByValue(row[item.prop], item)['label'] }}
+            {{ getDicDataByValue(row[item.prop as string], item)['label'] }}
           </span>
           <!-- 图片渲染 -->
           <template v-else-if="item.type === 'image'">
-            <el-image
-              v-if="getRowImgs(row[item.prop], item).length"
+            <img
+              v-if="getRowImgs(row[item.prop as string], item).length"
+              class="table-img"
               :style="{width: item.imgWidth || '100px', height: item.imgHeight || '100px'}"
-              :src="getRowImgs(row[item.prop], item)[0]"
-              :zoom-rate="1.2"
-              :preview-src-list="getRowImgs(row[item.prop], item)"
-              fit="cover"
+              :src="getRowImgs(row[item.prop as string], item)[0]"
+              @click="openPreview(getRowImgs(row[item.prop as string], item), 0, 1)"
             />
             <span v-else>{{item.default || '--'}}</span>
           </template>
           <!-- 视频渲染 -->
           <template v-else-if="item.type === 'video'">
-            <m-video
-              :style="{width: item.imgWidth || '100px', height: item.imgHeight || '100px'}"
-              :src="getRowVideos(row[item.prop], item)[0]"
-              :preview-src-list="getRowVideos(row[item.prop], item)"
-              :zoom-rate="1.2"
-              fit="cover"
+            <video
+              v-if="getRowVideos(row[item.prop as string], item).length"
+              class="table-video"
+              :style="{width: item.videoWidth || '100px', height: item.videoHeight || '100px'}"
+              :controls="false"
+              :src="getRowVideos(row[item.prop as string], item)[0]"
+              @click="openPreview(getRowVideos(row[item.prop as string], item), 0, 2)"
             />
+            <span v-else>{{item.default || '--'}}</span>
           </template>
         </template>
       </el-table-column>
@@ -197,5 +230,13 @@ const getRowVideos = (value: string, col: TableColumn) => {
         @current-change="handleCurrentChange"
       />
     </div>
+    <!-- 图片预览 -->
+    <el-image-viewer
+      v-if="previewDialog && previewType === 1"
+      :url-list="previewUrls"
+      :initial-index="previewIndex"
+      @close="closePreview"
+    >
+    </el-image-viewer>
   </div>
 </template>

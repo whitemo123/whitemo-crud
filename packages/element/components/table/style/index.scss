@@ -10,4 +10,13 @@
   .el-table__inner-wrapper::before {
     z-index: 1;
   }
+  .table-img {
+    object-fit: cover;
+    cursor: pointer;
+    display: inline-block;
+  }
+  .table-video {
+    display: inline-block;
+    cursor: pointer;
+  }
 }
