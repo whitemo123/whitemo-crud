@@ -51,7 +51,7 @@ const searchColumn = computed(() => {
         if (item.type === "daterange") {
           item.span = 6
         } else {
-          item.span = 4
+          item.span = 6
         }
       }
       columns.push(item)
@@ -165,7 +165,7 @@ const reset = () => {
         >
           <el-form-item
             :label="colItem.label"
-            :prop="colItem.prop as string"
+            :prop="colItem.prop"
           >
             <template v-if="colItem.slot">
               <slot :name="colItem.prop" v-bind="{row: modelValue}" />

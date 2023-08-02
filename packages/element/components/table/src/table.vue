@@ -28,6 +28,8 @@ const emits = defineEmits<{
   (e: "update:limit", limit: number): void;
   // 更新page
   (e: "update:page", page: number): void;
+  // 更新选中的行数
+  (e: "update:select", data: any): void;
 }>()
 
 // 是否预览
@@ -167,11 +169,35 @@ const closePreview = () => {
   previewType.value = 1
   previewIndex.value = 0
 }
+
+/**
+ * 多选触发
+ * @param val 
+ */
+const selectionChange = (val: any) => {
+  emits("update:select", val);
+}
+
+/**
+ * 单选触发
+ * @param val 
+ */
+const currentChange = (val: any) => {
+  if (attrs["highlight-current-row"] === null || attrs["highlight-current-row"] === undefined) return;
+  emits("update:select", val)
+}
 </script>
 
 <template>
   <div class="m-table">
-    <el-table :data="data" style="width: 100%" v-bind="attrs" v-loading="loading">
+    <el-table
+      :data="data"
+      style="width: 100%"
+      v-bind="attrs"
+      v-loading="loading"
+      @selection-change="selectionChange"
+      @current-change="currentChange"
+    >
       <el-table-column
         v-for="(item, index) in props.column"
         :key="index"
@@ -238,5 +264,13 @@ const closePreview = () => {
       @close="closePreview"
     >
     </el-image-viewer>
+    <!-- 视频预览 -->
+    <m-video-viewer
+      v-if="previewDialog && previewType === 2"
+      :url-list="previewUrls"
+      :initial-index="previewIndex"
+      @close="closePreview"
+    >
+    </m-video-viewer>
   </div>
 </template>

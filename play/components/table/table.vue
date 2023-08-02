@@ -10,10 +10,10 @@ import {ref} from "vue";
 import { TableColumn } from "whitemo-crud-element/lib";
 
 const column = ref<TableColumn[]>([
-  {
-    prop: "",
-    type: "selection"
-  },
+  // {
+  //   prop: "",
+  //   type: "selection"
+  // },
   {
     label: "关键字",
     prop: "keyword",
@@ -112,24 +112,24 @@ const list = ref<any>([
     select: 2,
     switch: 2,
     img: "://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg,://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
-    video: "/assets/1.mp4"
+    video: "/assets/1.mp4;/assets/1.mp4"
   }
 ])
 
 const page = ref(1)
 const limit = ref(10)
+const select = ref<any>([])
 
-const handleSelectionChange = (val: any) => {
-  console.log(val)
-}
+
 </script>
 
 <template>
-  <m-table :data="list" :total="55" v-model:page="page" v-model:limit="limit" :column="column" @selection-change="handleSelectionChange">
+  <m-table :data="list" :total="55" v-model:page="page" v-model:limit="limit" :column="column" v-model:select="select">
     <template v-slot:switch="{row, $index}">
       <el-switch :active-value="1" :inactive-value="2" :modelValue="row.switch"></el-switch>
     </template>
   </m-table>
+  {{ select }}
 </template>
 
 <style scoped>
