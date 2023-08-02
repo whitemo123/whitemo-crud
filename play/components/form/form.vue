@@ -1,12 +1,12 @@
-<script setup lang="ts">
-import {ref} from "vue";
+<script lang="ts" setup>
+import { ref } from "vue"
 import { CommonColumn } from "whitemo-crud-element/es/types/common";
 
-const queryParam = ref<any>({
-  page: 1,
-  limit: 10,
-})
 const column = ref<CommonColumn[]>([
+  {
+    label: "索引",
+    type: "index"
+  },
   {
     label: "关键字",
     prop: "keyword",
@@ -82,27 +82,13 @@ const column = ref<CommonColumn[]>([
   }
 ])
 
-const search = () => {
-  console.log(111)
-}
-
-const modify = () => {
-  column.value.splice(2, 1)
-}
+const form = ref<any>({})
 </script>
 
 <template>
-  <div style="width: 100%;">
-    <!-- {{queryParam}} -->
-    <m-search v-model="queryParam" size="" :column="column" @search="search">
-      <template v-slot:switch="{row}">
-        <el-input v-model="row.name"></el-input>
-      </template>
-    </m-search>
-    <!-- <button @click="modify">修改</button> -->
+  <div>
+    <m-form v-model="form" :column="column" />
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -157,53 +157,41 @@ const reset = () => {
       :size="size"
       :label-width="labelWidth"
     >
-      <el-row :gutter="20">
-        <el-col
-          v-for="(colItem, colIndex) in searchColumn"
-          :key="colIndex"
-          :span="colItem.span"
+      <el-form-item
+        :label="colItem.label"
+        :prop="colItem.prop"
+        v-for="(colItem, colIndex) in searchColumn"
+        :key="colIndex"
+      >
+        <template v-if="colItem.slot">
+          <slot :name="colItem.prop" v-bind="{row: modelValue}" />
+        </template>
+        <el-select
+          v-else-if="getComposeName(colItem.type) === 'el-select'"
+          v-model="modelValue[colItem.prop]"
+          v-bind="getComAttribute(colItem)"
+          clearable
         >
-          <el-form-item
-            :label="colItem.label"
-            :prop="colItem.prop"
+          <el-option
+            v-for="(dicItem, dicIndex) in colItem.dicData"
+            :key="dicIndex"
+            :label="dicItem.label"
+            :value="dicItem.value"
           >
-            <template v-if="colItem.slot">
-              <slot :name="colItem.prop" v-bind="{row: modelValue}" />
-            </template>
-            <el-select
-              v-else-if="getComposeName(colItem.type) === 'el-select'"
-              style="width: 100%"
-              v-model="modelValue[colItem.prop]"
-              v-bind="getComAttribute(colItem)"
-              clearable
-            >
-              <el-option
-                v-for="(dicItem, dicIndex) in colItem.dicData"
-                :key="dicIndex"
-                :label="dicItem.label"
-                :value="dicItem.value"
-              >
-              </el-option>
-            </el-select>
-            <component
-              v-else
-              style="width: 100%"
-              :is="getComposeName(colItem.type)"
-              v-bind="getComAttribute(colItem)"
-              v-model="modelValue[colItem.prop]"
-              @keydown.enter="search"
-            />
-          </el-form-item>
-        </el-col>
-        <el-col
-          :span="6"
-        >
-          <el-form-item>
-            <el-button :size='size as "large" | "default" | "small"' icon="Search" type="primary" @click="search">查询</el-button>
-            <el-button :size='size as "large" | "default" | "small"' icon="Delete" @click="reset">重置</el-button>
-          </el-form-item>
-        </el-col>
-      </el-row>
+          </el-option>
+        </el-select>
+        <component
+          v-else
+          :is="getComposeName(colItem.type)"
+          v-bind="getComAttribute(colItem)"
+          v-model="modelValue[colItem.prop]"
+          @keydown.enter="search"
+        />
+      </el-form-item>
+      <el-form-item>
+        <el-button :size='size as "large" | "default" | "small"' icon="Search" type="primary" @click="search">查询</el-button>
+        <el-button :size='size as "large" | "default" | "small"' icon="Delete" @click="reset">重置</el-button>
+      </el-form-item>
     </el-form>
   </div>
 </template>
