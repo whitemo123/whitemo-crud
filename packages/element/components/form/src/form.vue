@@ -7,20 +7,29 @@
  * @update: 2023-08-02 13:36
  */
 import { ref, computed } from "vue"
-import type { FormProps } from "./form"
+import type { FormProps, FormColumn } from "./form"
 import "../style/index.scss"
-import { CommonColumn } from "../../../types/common";
 import { externalAttr } from "../../../constants/bind";
+import type { FormInstance } from 'element-plus'
 defineOptions({name: "m-form"})
 
 // 表单属性
 const props = withDefaults(defineProps<FormProps>(), {
-  labelWidth: '80px'
+  labelWidth: '80px',
+  // 表单加载状态
+  loading: false
 })
+
+const emits = defineEmits<{
+  (e: "update:modelValue", data: any): void;
+}>()
+
+// 表单ref实例
+const formRef = ref<FormInstance>()
 
 // 表单项
 const formColumn = computed(() => {
-  const columns: CommonColumn[] = []
+  const columns: FormColumn[] = []
   props.column.forEach((item, index) => {
     // 不必要的类型进行过滤
     if (item.type !== "index" && item.type !== "selection") {
@@ -97,7 +106,7 @@ const getComposeName = (type: any) => {
  * 获取组件属性
  * @param item
  */
- const getComAttribute = (item: CommonColumn) => {
+const getComAttribute = (item: FormColumn) => {
   let attr: any = {}
   for (const key in item) {
     if (key === "type") {
@@ -121,6 +130,13 @@ const getComposeName = (type: any) => {
         // 输出格式化
         attr["value-format"] = attr["value-format"] || "YYYY-MM-DD HH:mm:ss"
       }
+      if (item.type === "switch") {
+        // 切换
+        if (item.dicData && item.dicData.length >= 2) {
+          attr["active-value"] = item.dicData[0].value
+          attr["inactive-value"] = item.dicData[1].value
+        }
+      }
     }
     if (externalAttr.indexOf(key) === -1) {
       // @ts-ignore
@@ -129,18 +145,53 @@ const getComposeName = (type: any) => {
   }
   return attr
 }
+
+/**
+ * 校验表单
+ */
+const validForm = () => {
+  return new Promise(resolve => {
+    formRef.value?.validate(valid => {
+      resolve(valid)
+    })
+  })
+}
+
+
+/**
+ * 清空form表单数据
+ */
+const clear = () => {
+  // 清空表单校验规则
+  formRef.value?.clearValidate()
+  // 清空表单数据
+  formRef.value?.resetFields()
+  // 更新form表单数据
+  emits("update:modelValue", {})
+}
+
+/**
+ * 导出函数
+ */
+defineExpose({
+  validForm,
+  clear
+})
 </script>
 
 <template>
   <el-form
+    ref="formRef"
     :model="modelValue"
     :labelWidth="labelWidth"
+    :disabled="loading"
   >
     <el-row :gutter="0">
       <el-col :span="colItem.span" v-for="(colItem, colIndex) in formColumn" :key="colIndex">
         <el-form-item
           :label="colItem.label"
           :prop="colItem.prop"
+          :rules="colItem.rules || []"
         >
           <template v-if="colItem.slot">
             <slot :name="colItem.prop" v-bind="{row: modelValue}" />
@@ -150,6 +201,7 @@ const getComposeName = (type: any) => {
             v-else-if="getComposeName(colItem.type) === 'el-select'"
             v-model="modelValue[colItem.prop as string]"
             v-bind="getComAttribute(colItem)"
+            style="width: 100%;"
             clearable
           >
             <el-option
@@ -164,6 +216,7 @@ const getComposeName = (type: any) => {
           <el-radio-group
             v-else-if="getComposeName(colItem.type) === 'el-radio'"
             v-model="modelValue[colItem.prop as string]"
+            style="width: 100%;"
             v-bind="getComAttribute(colItem)"
           >
             <el-radio v-for="(dic, dicIndex) in (colItem.dicData || [])" :key="dicIndex" :label="dic.value">{{ dic.label }}</el-radio>
@@ -171,6 +224,7 @@ const getComposeName = (type: any) => {
           <component
             v-else
             :is="getComposeName(colItem.type)"
+            style="width: 100%;"
             v-model="modelValue[colItem.prop as string]"
             v-bind="getComAttribute(colItem)"
           />

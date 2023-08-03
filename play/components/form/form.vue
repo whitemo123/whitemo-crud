@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import { ref } from "vue"
-import { CommonColumn } from "whitemo-crud-element/es/types/common";
+import type { FormColumn } from "whitemo-crud-element/lib"
+import {Form} from "whitemo-crud-element/lib"
 
-const column = ref<CommonColumn[]>([
+const formRef = ref<InstanceType<typeof Form>>()
+
+const column = ref<FormColumn[]>([
   {
     label: "索引",
     type: "index"
@@ -11,7 +14,10 @@ const column = ref<CommonColumn[]>([
     label: "关键字",
     prop: "keyword",
     sort: 2,
-    type: "text"
+    type: "text",
+    rules: [
+      {required: true, message: "测试", trigger: "blur"}
+    ]
   },
   {
     label: "姓名",
@@ -83,11 +89,23 @@ const column = ref<CommonColumn[]>([
 ])
 
 const form = ref<any>({})
+
+
+const submit = async () => {
+  console.log(await formRef.value?.validForm())
+}
+
 </script>
 
 <template>
   <div>
-    <m-form v-model="form" :column="column" />
+    <m-form ref="formRef" v-model="form" :column="column">
+      <template v-slot:switch="{row}">
+        <el-input v-model="row.switch"></el-input>
+      </template>
+    </m-form>
+    <button @click="submit">测试</button>
+    {{ form }}
   </div>
 </template>
 

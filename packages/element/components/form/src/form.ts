@@ -6,7 +6,14 @@
  * @update: 2023-08-02 13:36
  */
 import type { CommonColumn } from "../../../types/common";
-export interface FormProps {
+import { Size } from "../../../types/size";
+import type { FormItemRule } from "element-plus"
+
+export interface FormColumn extends CommonColumn {
+  rules?: FormItemRule[]
+}
+
+export interface FormProps extends Size {
   /**
    * 表单数据
    */
@@ -14,9 +21,13 @@ export interface FormProps {
   /**
    * 表单label宽度
    */
-  labelWidth: string | number;
+  labelWidth?: string | number;
   /**
    * 表单项
    */
-  column: CommonColumn[];
+  column: FormColumn[];
+  /**
+   * 加载状态
+   */
+  loading?: boolean;
 }
